@@ -3,7 +3,8 @@
 ![](https://user-images.githubusercontent.com/70382532/138322189-2db8df52-9dcb-40a0-88a8-c365466bd33d.gif)
 
 <hr>
-  
+
+<align="left">  
 - 👋 Hi, I’m @Raymond-CL
 - 🙅‍♂️ In the past, I used to code on a PC which is usually university property. After graduation, I realize that the codes I developed for the past few long hard years will either be copied to some randomly named folder and disappear in my personal hard drive, or permanently destroyed by new students who took over my PC for their own innocent experiment. I have come to understand that it is extremly important to back up all my codes online. Thus I turn to the thing that my computer science colleagues have suggested to me a long time ago, Github. Don't be like me.
 - 👀 I am currently a postdoc researcher in high energy nuclear theory, with past experiences in theoretical physics and pure mathematics. My occupation comes with the privilege of dealing with coding on a daily basis. Usually in the language of Fortran, C++, LaTeX, and sometimes Mathematica. So non of those fancy colors and interactive interfaces, just hard core number crunching and simulations.
