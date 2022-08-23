@@ -1,5 +1,6 @@
 I try to work entirly on the command line, since my mouse is crappy.
 
+## Setting up Git
 1. I'm working mostly on WSL, so first thing is setup git on Ubuntu
 ```
 sudo apt install git
@@ -31,6 +32,7 @@ gh auth login
   - follow the instructions
   - copy the code, proceed to open browser, past code, done.
 
+## First commit
 When the above is done, WSL should be able to talk to Git via a secure line.
 We now proceed to set up commit for the first time:
 1. create folder, it can contain a single program (big project), or multiple folders containing programs of the same category. (at least that's what I did)
@@ -57,6 +59,7 @@ gh repo create
 7. Following the instructions, and add remote called `origin`
 8. when prompt to push commit, just confirm, and everything should be synced to Git.
 
+## Everyday commit and push
 Later on, when working normally in the `repo1` folder, you would create new files, and/or make changes in existing files.
 We need to sync those as well.
 1. add new files for syncing if needed
