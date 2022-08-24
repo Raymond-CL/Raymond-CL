@@ -39,9 +39,9 @@
   <img src="https://github.com/vscode-icons/vscode-icons/blob/master/icons/file_type_fortran.svg" title="Fortran" alt="Fortran" width="40" height="40"/>&nbsp;
   <img src="https://github.com/vscode-icons/vscode-icons/blob/master/icons/file_type_cpp3.svg" title="Cpp" alt="Cpp" width="40" height="40"/>&nbsp;
   <img src="https://github.com/numixproject/numix-core/blob/master/icons/square/48/wolfram-mathematica.svg" title="Mathematica" alt="Mathematica" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/latex/latex-original.svg" title="TeX" alt="TeX" width="40" height="40"/>&nbsp;
   <img src="https://github.com/inspirehep/inspirehep/blob/master/artwork/INSPIRE_logo_Blue_BG.png" title="inspirehep" alt="inspire" height="40"/>&nbsp;
 </div>
+
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Raymond-CL&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
 
