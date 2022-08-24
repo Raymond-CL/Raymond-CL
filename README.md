@@ -1,11 +1,10 @@
 <div align="center">
-
-  ![](https://user-images.githubusercontent.com/70382532/138322189-2db8df52-9dcb-40a0-88a8-c365466bd33d.gif)
-
+  <img src="https://user-images.githubusercontent.com/70382532/138322189-2db8df52-9dcb-40a0-88a8-c365466bd33d.gif"/>
 </div>
 
 ---
 
+### :yin_yang: About me :
 - 👋 Hi, I’m Raymond
 - 🙅‍♂️ In the past, I used to code on a PC which is usually university property. After graduation, I realize that the codes I developed for the past few long hard years will either be copied to some randomly named folder and disappear in my personal hard drive, or permanently destroyed by new students who took over my PC for their own innocent experiment. I have come to understand that it is extremly important to back up all my codes online. Thus I turn to the thing that my computer science colleagues have suggested to me a long time ago, Github. Don't be like me.
 - 👀 I am currently a postdoc researcher in high energy nuclear theory, with past experiences in theoretical physics and pure mathematics. My occupation comes with the privilege of dealing with coding on a daily basis. Usually in the language of Fortran, C++, LaTeX, and sometimes Mathematica. So non of those fancy colors and interactive interfaces, just hard core number crunching and algorithmic simulations.
@@ -22,9 +21,16 @@
   <a href="https://inspirehep.net/authors/1477331">
     <img src="https://github.com/inspirehep/inspirehep/blob/master/artwork/INSPIRE_logo_Blue_BG.png" alt="inspire Badge" height="20"/>
   </a>
+  <a href="mailto:raymond.chen88@outlook.com">
+    <img src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" alt="outlook Badge" height="20"/>
+  </a>
+  <a href="https://github.com/Raymond-CL">
+    <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="github Badge" height="20"/>
+  </a>
 </div>
 
 ---
+
 ### :hammer_and_wrench: Languages and Tools :
 <div>
   <img src="https://github.com/vscode-icons/vscode-icons/blob/master/icons/file_type_fortran.svg" title="Fortran" alt="Fortran" width="40" height="40"/>&nbsp;
