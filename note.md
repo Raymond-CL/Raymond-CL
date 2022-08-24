@@ -71,7 +71,8 @@ git add .
 ```
 git commit -a -m 'some comment about this commit'
 ```
-3. push those updated changes to master
+3. push those updated changes to master (if already used `git push -u origin master`)
 ```
-git push origin master
+git push
 ```
+
