@@ -11,7 +11,7 @@
 - 🌱 I am not a professional programmer like the rest of the community here on Github. I am just utilizing the program so I can perform numerical analysis on my physics problems. So most of the codes here are going to be private, and the only public codes will be some of the examples that I am going to share with my students.
 - 📫 You can shoot me an email on raymond.chen88@outlook.com, have fun coding.
 
-<div id="badges">
+<div align="center" id="badges">
   <a href="https://www.linkedin.com/in/raymond-lin-chen-04050620b/">
     <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge" height="20"/>
   </a>
