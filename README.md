@@ -27,6 +27,9 @@
   <a href="https://github.com/Raymond-CL" target="blank">
     <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="github Badge" height="20"/>
   </a>
+  <a>
+    <img src="https://komarev.com/ghpvc/?username=Raymond-CL&style=flat-square&color=blue" alt="" height="20"/>
+  </a>
 </div>
 
 ---
@@ -41,8 +44,6 @@
 </div>
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Raymond-CL&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
-
-<img src="https://komarev.com/ghpvc/?username=Raymond-CL&style=flat-square&color=blue" alt=""/>
 
 
 <!---
