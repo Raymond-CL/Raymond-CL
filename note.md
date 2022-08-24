@@ -58,6 +58,7 @@ gh repo create
 ```
 7. Following the instructions, and add remote called `origin`
 8. when prompt to push commit, just confirm, and everything should be synced to Git.
+9. To simplify things further, we use `git push -u origin master` instead of `git push origin master` so in the future, we can just `git push` instead of `git push origin master` all the time.
 
 ## Everyday commit and push
 Later on, when working normally in the `repo1` folder, you would create new files, and/or make changes in existing files.
