@@ -1,11 +1,11 @@
-I try to work entirly on the command line, since my mouse is crappy.
+This is a note-to-self in case I lost my codes again.
 
 ## Setting up Git
-1. I'm working mostly on WSL, so first thing is setup git on Ubuntu
+1. I'm working mostly on [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), so first thing is setup git on Ubuntu
 ```
 sudo apt install git
 ```
-2. GitHub CLI is also important, follow the instructions [here](https://github.com/cli/cli/blob/trunk/docs/install_linux.md):
+2. Because my mouse is crappy, I try to work mostly on the keyboard, thus GitHub CLI is also important, install by following the instructions [here](https://github.com/cli/cli/blob/trunk/docs/install_linux.md):
 ```
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
 && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -13,7 +13,7 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo 
 && sudo apt update \
 && sudo apt install gh -y
 ```
-3. Then we need a connection, [SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) recommended.
+3. Then we need a connection, between the computer and GitHub. [SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) recommended.
   - check for existing key
 ```
 ls -al ~/.ssh
