@@ -47,11 +47,10 @@
 
 
 <!---
-<div id="header" align="center">
- <img src="https://media.giphy.com/media/jcG5oVqQNMY00/giphy.gif">
+A special thanks to Github community who has provided for me all the resources and codes that appear in this README.md, especially the .gif on the header, the badges, icons and stats. Seriously, Github is much better than Wordpress.
 </div>
 --->
- 
+
 <!---
 Raymond-CL/Raymond-CL is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
