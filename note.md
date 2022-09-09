@@ -76,3 +76,18 @@ git commit -a -m 'some comment about this commit'
 git push
 ```
 
+## Updated `.gitignore` or added new files
+The above procedure works when we already have a project  with a list of files working. However, we some times wish to add new files or update the list of "ignored files". We can apply the following after we have an updated `.gitignore` file:
+```
+git rm -r --cached .
+```
+This removes all files and folders in the git cache, then simply add it back it again:
+```
+git add .
+```
+Then perform the usual commit and push
+```
+git commit -a -m 'updated .gitignore and/or added some files'
+git push
+```
+
