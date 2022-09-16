@@ -46,7 +46,7 @@
 
 ---
 
-### :locked: list of private repositories:
+### 🔐 list of private repositories:
 
 These are some of the private repositories not shown in the list. But you can contact me if you want a clone.
 
