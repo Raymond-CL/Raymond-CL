@@ -42,9 +42,22 @@
   <img src="https://github.com/inspirehep/inspirehep/blob/master/artwork/INSPIRE_logo_Blue_BG.png" title="inspirehep" alt="inspire" height="40"/>&nbsp;
 </div>
 
-
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Raymond-CL&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
 
+---
+
+### :locked: list of private repositories:
+
+These are some of the private repositories not shown in the list. But you can contact me if you want a clone.
+
+- ***BK-solver***
+  - A Fortran program that generates a 2D table of the dipole amplitude $N(r,Y)$ by solving the Balitsky-Kovchegov (BK) equation in coordinate (configuration) space, given an intial condition at $N(r,Y=0)$.
+
+- ***RiPQCD***
+  - Resummation improved Perturbative QCD is a Fortran program that calculates cross-sections of 2-particle correlations using LO pQCD or Sudakov resummation.
+  - processes include: dijet, dihadron, hadron-jet, gamma-jet, gamma-hadron, Z-jet, Z-hadron, Higgs-jet etc. Also include Drell-Yan Z, W, Higgs production.
+
+---
 
 <!---
 A special thanks to Github community who has provided for me all the resources and codes that appear in this README.md, especially the .gif on the header, the badges, icons and stats. Seriously, Github is much better than Wordpress.
