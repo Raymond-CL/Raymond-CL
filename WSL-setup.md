@@ -49,3 +49,21 @@ Most of the operations below required that you have a stable internet connection
    Use *GitHub.com*, use *SSH* protocol, use the *.pub* public key generated, and choose login with web browser, enter the code and we are done. \
    We can test the connection by cloning this repository `gh repo clone Raymond-CL/Raymond-CL`. \
    In VScode, source control should automatically detect Git and it will display commit options. Make some minor modification to this repo and try to commit&push (need comment). 
+
+## setup compilers
+
+0. It is strongly recommended to install the GNU collection of compilers ans support free software.
+1. `sudo apt install build-essential` will install C++, make, etc.
+   Compile the following code:
+   ```c
+   #include <iostream>
+   #include <stdlib.h>
+
+   int main(){
+     std::cout << "Hello World!" << std::endl;
+     return 0;
+   }
+   ```
+   with `g++ main.cc -o example-cpp`
+2. `sudo apt install gfortran` will install GFortran. (I don't know why it is not included in `build-essential`)
+3. `sudo apt install libgsl-dev` will install GNU scientific library.
