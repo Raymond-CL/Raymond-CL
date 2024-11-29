@@ -52,7 +52,7 @@ Most of the operations below required that you have a stable internet connection
 
 ## setup compilers
 
-0. It is strongly recommended to install the GNU collection of compilers ans support free software.
+0. It is strongly recommended to install the GNU collection of compilers and support free software.
 1. `sudo apt install build-essential` will install C++, make, etc. \
    Compile the following code:
    ```cpp
@@ -64,7 +64,7 @@ Most of the operations below required that you have a stable internet connection
      return 0;
    }
    ```
-   with `g++ main.cc -o example-cpp`
+   with `g++ ex-cpp.cc -o example-cpp`
 2. `sudo apt install gfortran` will install GFortran. (I don't know why it is not included in `build-essential`) \
    Compile the following code:
    ```fortran
@@ -72,7 +72,7 @@ Most of the operations below required that you have a stable internet connection
      write(*,*) 'Hello World!'
    end program main
    ```
-   with `gfortran main.f90 -o example-fort`
+   with `gfortran ex-fort.f90 -o example-fort`
 3. `sudo apt install libgsl-dev` will install GNU scientific library. \
    Compile the following code:
    ```cpp
@@ -86,5 +86,18 @@ Most of the operations below required that you have a stable internet connection
    ```
    with 
    ```bash
-   g++ gsl.cc -o example-gsl `gsl-config -lib-without-cblas --cflags`
+   g++ ex-gsl.cc -o example-gsl `gsl-config -lib-without-cblas --cflags`
    ```
+
+## setup LHAPDF
+
+0. It is recommended to get the C++ version (LHAPDF6) instead of the Fortran version (LHAPDF5). \
+   We will create a temporary folder for the installation `mkdir $HOME/prog_lhapdf6 && cd prog_lhapdf6`
+1. Download the tarball or follow the instructions [online](https://lhapdf.hepforge.org/install.html).
+   ```bash
+   wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.5.4.tar.gz -O LHAPDF-6.5.4.tar.gz
+   tar xf LHAPDF-6.5.4.tar.gz
+   cd LHAPDF-6.5.4
+   ```
+   You can check the latest version [here](https://lhapdf.hepforge.org/downloads/)
+2. 
