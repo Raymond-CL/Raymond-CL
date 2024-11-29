@@ -117,7 +117,7 @@ Most of the operations below required that you have a stable internet connection
 ## setup LHAPDF
 
 0. It is recommended to get the C++ version (LHAPDF6) instead of the Fortran version (LHAPDF5). \
-   We will create a temporary folder for the installation `mkdir $HOME/prog_lhapdf6 && cd prog_lhapdf6`
+   We will create a temporary folder for the installation `mkdir $HOME/prog_lhapdf6 && cd prog_lhapdf6`.
 1. Download the tarball or follow the instructions [online](https://lhapdf.hepforge.org/install.html).
    ```bash
    wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.5.4.tar.gz -O LHAPDF-6.5.4.tar.gz
@@ -158,3 +158,52 @@ Most of the operations below required that you have a stable internet connection
    ```
 
 ## setup FastJet
+
+0. We will create a temporary folder for the installation `mkdir $HOME/prog_fastjet3 && cd prog_fastjet3`. \
+1. Download the tarball or follow the instructions [online](https://fastjet.fr/quickstart.html).
+   ```bash
+   wget https://fastjet.fr/repo/fastjet-3.4.3.tar.gz
+   tar xf fastjet-3.4.3.tar.gz
+   cd fastjet-3.4.3.tar.gz
+   ```
+   You can check the latest version [here](https://fastjet.fr/all-releases.html).
+2. We can now install FastJet3 (need root permission) with the following:
+   ```bash
+   sudo ./configure --prefix=/usr --enable-allplugins
+   sudo make
+   sudo make install
+   ```
+   It is not necessary to include the last flag, which are some uncommon jet algorithms used by D0, ATLAS and CMS. But it doesn't hurt to install all. \
+   We can verify with `fastjet-config --version`.
+3. Verify by compiling the following code (or the example [online](https://fastjet.fr/quickstart.html)):
+   ```cpp
+   #include "fastjet/ClusterSequence.hh"
+   #include <iostream>
+   using namespace fastjet;
+
+   int main(){
+     std::vector<PseudoJet> particles;
+     particles.push_back(PseudoJet( 100.0,  0.0, 0.0, 100.0));
+     particles.push_back(PseudoJet(   5.0,  0.1, 0.0,   5.0));
+     particles.push_back(PseudoJet( -50.0,  0.0, 0.0,  50.0));
+     particles.push_back(PseudoJet(  -5.0,  0.5, 0.0,   5.0));
+
+     JetDefinition jetR07(antikt_algorithm,0.7), jetR04(antikt_algorithm,0.4);
+     ClusterSequence cs07(particles,jetR07), cs04(particles,jetR04);
+     std::vector<PseudoJet> jets;
+
+     jets = sorted_by_pt(cs07.inclusive_jets());
+     std::cout << jetR07.description() << std::endl;
+     for (unsigned i = 0; i < jets.size(); i++){
+       std::cout << "jet " << i+1 
+                 << " with pt = " << jets[i].pt() 
+                 << " and phi = " << jets[i].phi() 
+                 << " containing " << jets[i].constituents().size() 
+                 << " constituents.\n";
+     }
+   }
+   ```
+   with
+   ```bash
+   g++ ex-fjet.cc -o example-fjet `fastjet-config --cxxflags --libs`
+   ```
