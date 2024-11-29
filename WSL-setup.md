@@ -84,4 +84,7 @@ Most of the operations below required that you have a stable internet connection
      return 0;
    }
    ```
-   with `g++ gsl.cc -o example-gsl \`gsl-config --lib-without-cblas --cflags\``
+   with 
+   ```bash
+   g++ gsl.cc -o example-gsl `gsl-config -lib-without-cblas --cflags`
+   ```
