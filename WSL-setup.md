@@ -4,6 +4,7 @@ setup procedure for *Windows Subsystem for Linux* (WSL). \
 If you are reading this on Github, click on the top right button to show table of contents. \
 Most of the operations below required that you have a stable internet connection.
 
+	
 ## setup WSL
 
 0. Show the list of installed WSL distributions in your system by running `wslconfig /l` in *Windows Powershell*. \
@@ -21,6 +22,29 @@ Most of the operations below required that you have a stable internet connection
    Depending on your WSL version, it will either be in the user directory, or a localhost network.
 7. From now on, we will run WSL via VScode using a remote connection. \
    Open VScode in Windows, then click the bottom left blue button, or `ctrl+shift+P` and enter WSL.
+
+> [!NOTE]
+> Please respect the installation destination, always install in /usr and not /usr/local, nor ~/
+> Because sometimes the program might not have permission to access certain directories
+
+├── boot
+├── etc
+├── home
+│   ├── (user)
+│   │   └── (home directory)
+│   └── (otheruser)
+├── mnt
+├── tmp
+└── usr (install here)
+    ├── bin
+    ├── include
+    ├── lib
+    ├── share
+    └── local (don't install here)
+        ├── bin
+        ├── include
+        ├── lib
+        └── share
 
 ## setup Git
 
@@ -100,4 +124,9 @@ Most of the operations below required that you have a stable internet connection
    cd LHAPDF-6.5.4
    ```
    You can check the latest version [here](https://lhapdf.hepforge.org/downloads/)
-2. 
+2. It is worth noting that Ubuntu will not support Python 2 as of version 24.04. \
+   This means that you will not be able to install `python` through the `apt` package manager. \
+   We then need `sudo apt install python-is-python3` to replace all `python` commands with `python3`. \
+   We will also need `sudo apt install cython3` to correct some C-extension codes in python, such as `PyLongObject`. \
+   We might as well get `sudo apt install python3-dev` for some development libraries
+
