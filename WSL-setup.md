@@ -5,8 +5,11 @@ If you are reading this on Github, click on the top right button to show table o
 Most of the operations below required that you have a stable internet connection.
 
 Table of contents:
-- [WSL](WSL-setup.md#setup-wsl)
-- [Git](WSL-setup.md#setup-git)
+[WSL](WSL-setup.md#setup-wsl),
+[Git](WSL-setup.md#setup-git),
+[compilers](WSL-setup.md#setup-compilers),
+[LHAPDF](WSL-setup.md#setup-lhapdf),
+[FastJet](WSL-setup.md#setup-fastjet),
 	
 ## setup WSL
 
