@@ -129,5 +129,32 @@ Most of the operations below required that you have a stable internet connection
    This means that you will not be able to install `python` through the `apt` package manager. \
    We then need `sudo apt install python-is-python3` to replace all `python` commands with `python3`. \
    We will also need `sudo apt install cython3` to correct some C-extension codes in python, such as `PyLongObject`. \
-   We might as well get `sudo apt install python3-dev` for some development libraries
+   We might as well get `sudo apt install python3-dev` for some development libraries.
+3. We can now install LHAPDF6 (need root permission) with the following:
+   ```bash
+   sudo ./configure --prefix=/usr
+   sudo make
+   sudo make install
+   ```
+   We can verify with `lhapdf help` and see that `listdir` and `pdfdir` has the correct directory `/usr/share/LHAPDF`.
+4. We will need to install some PDF sets with `lhapdf` (need permission). \
+   run `sudo lhapdf install CT18NNLO` to download the CTEQ18 NNLO PDF set to `/usr/share/LHAPDF`.
+5. Verify by compiling the following code:
+   ```cpp
+   #include "LHAPDF/LHAPDF.h"
+   #include <iostream>
+   using namespace LHAPDF;
+ 
+   int main() { 
+     const PDF* pdf = mkPDF("CT18NNLO",0);
+     std::cout << pdf->xfxQ(0, 0.1, 1000.) << endl;
+     delete pdf;
+     return 0;
+   }
+   ```
+   with
+   ```bash
+   g++ ex-pdf.cc -o example-pdf `lhapdf-config --cflags --libs`
+   ```
 
+## setup FastJet
