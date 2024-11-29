@@ -119,6 +119,7 @@ Table of contents:
    ```bash
    g++ ex-gsl.cc -o example-gsl `gsl-config -lib-without-cblas --cflags`
    ```
+4. `sudo apt install mpich` will install C-extension of MPI features. (might as well)
 
 ## setup LHAPDF
 
