@@ -24,9 +24,9 @@ Most of the operations below required that you have a stable internet connection
    Open VScode in Windows, then click the bottom left blue button, or `ctrl+shift+P` and enter WSL.
 
 > [!NOTE]
-> Please respect the installation destination, always install in /usr and not /usr/local, nor ~/
-> Because sometimes the program might not have permission to access certain directories
-
+> Please respect the installation destination, always install in `/usr`, not `/usr/local`, nor `~/`.
+> Because sometimes the program might not have permission to access certain directories and might behave weirdly.
+```
 ├── boot
 ├── etc
 ├── home
@@ -36,15 +36,16 @@ Most of the operations below required that you have a stable internet connection
 ├── mnt
 ├── tmp
 └── usr (install here)
-    ├── bin
-    ├── include
-    ├── lib
-    ├── share
+    ├── bin (binary files)
+    ├── include (header .h files)
+    ├── lib (library .so files)
+    ├── share (usually data files)
     └── local (don't install here)
         ├── bin
         ├── include
         ├── lib
         └── share
+```
 
 ## setup Git
 
