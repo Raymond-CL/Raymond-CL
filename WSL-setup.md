@@ -120,6 +120,8 @@ Table of contents:
    g++ ex-gsl.cc -o example-gsl `gsl-config -lib-without-cblas --cflags`
    ```
 4. `sudo apt install mpich` will install C-extension of MPI features. (might as well)
+5. `sudo apt install htop` will install system process manager. (similar to `top`, might as well) \
+   optimize with `alias htop='htop -d 10 -u $(whoami) -s TIME -p $(pgrep -ivf ".vscode" -d ",")'`
 
 ## setup LHAPDF
 
