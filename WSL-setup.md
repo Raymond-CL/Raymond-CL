@@ -53,9 +53,9 @@ Most of the operations below required that you have a stable internet connection
 ## setup compilers
 
 0. It is strongly recommended to install the GNU collection of compilers ans support free software.
-1. `sudo apt install build-essential` will install C++, make, etc.
+1. `sudo apt install build-essential` will install C++, make, etc. \
    Compile the following code:
-   ```c
+   ```cpp
    #include <iostream>
    #include <stdlib.h>
 
@@ -65,5 +65,23 @@ Most of the operations below required that you have a stable internet connection
    }
    ```
    with `g++ main.cc -o example-cpp`
-2. `sudo apt install gfortran` will install GFortran. (I don't know why it is not included in `build-essential`)
-3. `sudo apt install libgsl-dev` will install GNU scientific library.
+2. `sudo apt install gfortran` will install GFortran. (I don't know why it is not included in `build-essential`) \
+   Compile the following code:
+   ```fortran
+   program main
+     write(*,*) 'Hello World!'
+   end program main
+   ```
+   with `gfortran main.f90 -o example-fort`
+3. `sudo apt install libgsl-dev` will install GNU scientific library. \
+   Compile the following code:
+   ```cpp
+   #include <gsl/gsl_sf_bessel.h>
+   #include <iostream>
+
+   int main(){
+     std::cout << gsl_sf_bessel_J0(1.0) << std::endl;
+     return 0;
+   }
+   ```
+   with `g++ gsl.cc -o example-gsl \`gsl-config --lib-without-cblas --cflags\``
