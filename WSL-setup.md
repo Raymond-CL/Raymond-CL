@@ -122,6 +122,7 @@ Table of contents:
 4. `sudo apt install mpich` will install C-extension of MPI features. (might as well)
 5. `sudo apt install htop` will install system process manager. (similar to `top`, might as well) \
    optimize with `alias htop='htop -d 10 -u $(whoami) -s TIME -p $(pgrep -ivf ".vscode" -d ",")'`
+6. `sudo apt install cmake` will install `CMake`. (fun fact: `mpicc` and `CMake` has similar symbol)
 
 ## setup LHAPDF
 
@@ -216,3 +217,7 @@ Table of contents:
    ```bash
    g++ ex-fjet.cc -o example-fjet `fastjet-config --cxxflags --libs`
    ```
+
+## setup ROOT
+
+0. 
