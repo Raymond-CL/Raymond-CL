@@ -31,7 +31,7 @@ Table of contents:
    Open VScode in Windows, then click the bottom left blue button, or `ctrl+shift+P` and enter WSL.
 
 > [!NOTE]
-> Please respect the installation destination, always install in `/usr`, not `/usr/local`, nor `~/`.
+> Please respect the installation destination, always install in `/usr`, not `/usr/local`, nor `$HOME/`.
 > Because sometimes the program might not have permission to access certain directories and might behave weirdly.
 ```
 ├── home
@@ -62,7 +62,7 @@ Table of contents:
    git config --global user.email "user@email"
    ```
 2. We want to connect to Git using SSH protocol. Check that you have SSH installed: `ssh -V`. \
-   You can check whether you have a public key generated, see if `ls -al ~/.ssh` shows a `.pub` file. \
+   You can check whether you have a public key generated, see if `ls -al $HOME/.ssh` shows a `.pub` file. \
    If not, generate one using: `ssh-keygen -t ed25519 -C "comment"`, where we usually put our email address in the comment. \
    Follow the instructions (just skip the passphrase) will create a public key for you. (ED25519 is better than RSA, so I've heard)
 3. We then need to install Github CLI. For Ubuntu, we need to run the following lines found [here](https://github.com/cli/cli/blob/trunk/docs/install_linux.md).
@@ -106,22 +106,55 @@ Table of contents:
    These dependencies are a bit different from the official recommendations [here](https://root.cern/install/dependencies/).
 1. It is recommended to build from [source](https://root.cern/install/#build-from-source). \
    ```bash
-   mkdir ~/prog_root6
-   git clone --branch latest-stable --depth=1 https://github.com/root-project/root.git ~/prog_root6/root_src
-   mkdir ~/prog_root6/root_build && cd ~/prog_root6/root_build
-   cmake -DCMAKE_INSTALL_PREFIX=/usr -Dgnuinstall=ON -Dbuiltin_xrootd=ON ../root_src
-   sudo make -j8
-   sudo make install
+   mkdir $HOME/prog_root6 && cd $HOME/prog_root6
+   git clone --branch latest-stable --depth=1 https://github.com/root-project/root.git ./root6_src
+   mkdir ./root6_build && cd ./root6_build
+   cmake -DCMAKE_INSTALL_PREFIX=/usr \
+     -Dgnuinstall=ON \
+     -Dbuiltin_xrootd=ON \
+     ../root6_src
+   sudo make -j8 install
    ```
    Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
    There are some libraries that are ignored, such as CUDA-compiler, `cudnn`, PostgreSQL, SQLite, Davix, OCaml, RapidYAML. But they are not necessary. \
    Because the make process might take an hour, I'm using 8 cores to build those binaries.
-3. We can then verify the installation with `root --version` and show features with `root-config --features`.
-4. We now test an example, copy the codes from [this](https://root.cern.ch/root/htmldoc/guides/primer/ROOTPrimer.html#a-more-complete-example) online example to `~/examples/ex-root.C`. Then compile with
+2. We can then verify the installation with `root --version` and show features with `root-config --features`.
+3. We now test an example, copy the codes from [this](https://root.cern.ch/root/htmldoc/guides/primer/ROOTPrimer.html#a-more-complete-example) online example to `$HOME/examples/ex-root.C`. Then compile with
    ```bash
-   g++ ~/examples/ex-root.C -o ~/examples/ex-root `root-config --cflags --libs`
+   g++ $HOME/examples/ex-root.C -o $HOME/examples/ex-root `root-config --cflags --libs`
    ```
    which should produce a `.pdf` file and can be opened with VScode.
+
+## setup HEPMC
+
+0. It is recommended to install ROOT before installing HEPMC3 (So that `ROOTIO` can be of use).
+1. Check [here](https://hepmc.web.cern.ch/hepmc/index.html) for the latest release version of HEPMC3 and copy the link. \
+   Download and install with:
+   ```bash
+   mkdir $HOME/prog_hepmc3 && cd $HOME/prog_hepmc3
+   wget https://hepmc.web.cern.ch/hepmc/releases/HepMC3-3.3.0.tar.gz -O hepmc3_src
+   mkdir ./hepmc3_build && cd ./hepmc3_build
+   cmake -DCMAKE_INSTALL_PREFIX=/usr \
+     -DHEPMC3_ENABLE_ROOTIO:BOOL=ON \
+     -DHEPMC3_ENABLE_PROTOBUFIO:BOOL=OFF \
+     -DHEPMC3_ENABLE_TEST:BOOL=ON \
+     -DHEPMC3_INSTALL_INTERFACES:BOOL=ON \
+     -DHEPMC3_BUILD_STATIC_LIBS:BOOL=OFF \
+     -DHEPMC3_BUILD_DOCS:BOOL=ON \
+     -DHEPMC3_BUILD_EXAMPLES:BOOL=ON \
+     -DHEPMC3_ENABLE_PYTHON:BOOL=ON \
+     -DHEPMC3_PYTHON_VERSIONS=3.12 \
+     -DHEPMC3_Python_SITEARCH=/usr/lib/python3.12/site-packages \
+     ../hepmc3_src
+   sudo make -j8 install
+   ```
+   Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
+   which is a bit different from the procedure given [here](https://gitlab.cern.ch/hepmc/HepMC3), but no matter.
+2. We can then verify the installation with `HepMC3-config --version` and show features with `HepMC3-config --features`.
+3. We now test an example, copy the codes from [this](https://hepmc.web.cern.ch/hepmc/basic_tree_8cc-example.html) online example to `$HOME/examples/ex-hepmc.cc`. Then compile with
+   ```bash
+   g++ $HOME/examples/ex-hepmc.cc -o $HOME/examples/ex-hepmc `HepMC3-config --cflags --ldflags`
+   ```
 
 ## setup LHAPDF
 
