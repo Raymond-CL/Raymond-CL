@@ -13,8 +13,8 @@ Table of contents:
 	
 ## setup WSL
 
-0. Show the list of installed WSL distributions in your system by running `wslconfig /l` in *Windows Powershell*. \
-   Where you can unregister a distribution for a clean installation with `wslconfig /u Ubuntu`.
+0. Show the list of installed WSL distributions in your system by running `wsl --list` or `wslconfig /l` in *Windows Powershell*. \
+   Where you can unregister a distribution for a clean installation with `wsl --unregister Ubuntu` or `wslconfig /u Ubuntu`.
 1. List the available WSL distributions online by running `wsl --list --online`. \
    We then choose to install the lastest Ubuntu distribution with `wsl --install Ubuntu`. \
    You can find more information [here](https://learn.microsoft.com/en-us/windows/wsl/).
@@ -33,20 +33,19 @@ Table of contents:
 > Please respect the installation destination, always install in `/usr`, not `/usr/local`, nor `~/`.
 > Because sometimes the program might not have permission to access certain directories and might behave weirdly.
 ```
-├── boot
-├── etc
 ├── home
-│   ├── (user)
-│   │   └── (home directory)
-│   └── (otheruser)
+│   └── $(whoami) [home directory]
+│       ├── examples
+│       ├── prog_lhapdf6
+│       ├── prog_pythia8
+│       └── prog_root6
 ├── mnt
-├── tmp
-└── usr (install here)
-    ├── bin (binary files)
-    ├── include (header .h files)
-    ├── lib (library .so files)
-    ├── share (usually data files)
-    └── local (don't install here)
+└── usr [install here]
+    ├── bin [binary files]
+    ├── include [header .h files]
+    ├── lib [library .so files]
+    ├── share [usually data files]
+    └── local [don't install here !!!]
         ├── bin
         ├── include
         ├── lib
@@ -84,45 +83,41 @@ Table of contents:
 ## setup compilers
 
 0. It is strongly recommended to install the GNU collection of compilers and support free software.
-1. `sudo apt install build-essential` will install C++, make, etc. \
-   Compile the following code:
-   ```cpp
-   #include <iostream>
-   #include <stdlib.h>
+1. Install some common compilers `sudo apt install build-essential gfortran python3 python3-dev python3-numpy cython3 python-is-python3`.
+2. Install some utilities `sudo apt install binutils cmake dpkg-dev git htop mpich`. \
+   optimize with `alias htop='htop -d 20 -u $(whoami) -s Command'`
 
-   int main(){
-     std::cout << "Hello World!" << std::endl;
-     return 0;
-   }
-   ```
-   with `g++ ex-cpp.cc -o example-cpp`
-2. `sudo apt install gfortran` will install GFortran. (I don't know why it is not included in `build-essential`) \
-   Compile the following code:
-   ```fortran
-   program main
-     write(*,*) 'Hello World!'
-   end program main
-   ```
-   with `gfortran ex-fort.f90 -o example-fort`
-3. `sudo apt install libgsl-dev` will install GNU scientific library. \
-   Compile the following code:
-   ```cpp
-   #include <gsl/gsl_sf_bessel.h>
-   #include <iostream>
+## setup ROOT
 
-   int main(){
-     std::cout << gsl_sf_bessel_J0(1.0) << std::endl;
-     return 0;
-   }
-   ```
-   with 
+0. Root require some libraries before installation, the core libraries can be install with
    ```bash
-   g++ ex-gsl.cc -o example-gsl `gsl-config -lib-without-cblas --cflags`
+   sudo apt install libssl-dev libx11-dev libxext-dev libxft-dev libxpm-dev libtbb-dev libvdt-dev libgif-dev
    ```
-4. `sudo apt install mpich` will install C-extension of MPI features. (might as well)
-5. `sudo apt install htop` will install system process manager. (similar to `top`, might as well) \
-   optimize with `alias htop='htop -d 10 -u $(whoami) -s TIME -p $(pgrep -ivf ".vscode" -d ",")'`
-6. `sudo apt install cmake` will install `CMake`. (fun fact: `mpicc` and `CMake` has similar symbol)
+   Then there are other optional packages (but we'll install them anyway) that can be install with
+   ```bash
+   sudo apt install libavahi-compat-libdnssd-dev libblas-dev libcfitsio-dev libedit-dev \
+   libfftw3-dev libftgl-dev libgl2ps-dev libglew-dev libglu1-mesa-dev libgraphviz-dev libgsl-dev \
+   libjpeg-dev libjpeg-dev libkrb5-dev libldap2-dev liblz4-dev liblzma-dev libmysqlclient-dev \
+   libpcre2-dev libpcre3-dev libtiff-dev libtiff-dev libxml2-dev libxxhash-dev libzstd-dev \
+   nlohmann-json3-dev postgresql qtwebengine5-dev sqlite3 terminfo
+   ```
+   These dependencies are a bit different from the official recommendations [here](https://root.cern/install/dependencies/).
+1. It is recommended to build from [source](https://root.cern/install/#build-from-source). \
+   ```bash
+   mkdir ~/prog_root6
+   git clone --branch latest-stable --depth=1 https://github.com/root-project/root.git ~/prog_root6/root_src
+   mkdir ~/prog_root6/root_build && cd ~/prog_root6/root_build
+   cmake -DCMAKE_INSTALL_PREFIX=/usr ../root_src
+   sudo make -j8
+   sudo make install
+   ```
+   Here, I'm installing ROOT to `/usr`. Because the make process might take an hour, I'm using 8 cores to build those binaries.
+2. We can then verify the installation with `root --version` and show features with `root-config --features`.
+3. We now test an example, copy the codes from [this](https://root.cern.ch/root/htmldoc/guides/primer/ROOTPrimer.html#a-more-complete-example) online example to `~/examples/ex-root.C`. Then compile with
+   ```bash
+   g++ ~/examples/ex-root.C -o ~/examples/ex-root `root-config --cflags --libs`
+   ```
+   which should produce a `.pdf` file and can be opened with VScode.
 
 ## setup LHAPDF
 
@@ -218,6 +213,5 @@ Table of contents:
    g++ ex-fjet.cc -o example-fjet `fastjet-config --cxxflags --libs`
    ```
 
-## setup ROOT
 
 0. 
