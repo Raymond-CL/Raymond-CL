@@ -112,7 +112,8 @@ Table of contents:
    sudo make -j8
    sudo make install
    ```
-   Here, I'm installing ROOT to `/usr`. Because the make process might take an hour, I'm using 8 cores to build those binaries.
+   Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
+   Because the make process might take an hour, I'm using 8 cores to build those binaries.
 2. We can then verify the installation with `root --version` and show features with `root-config --features`.
 3. We now test an example, copy the codes from [this](https://root.cern.ch/root/htmldoc/guides/primer/ROOTPrimer.html#a-more-complete-example) online example to `~/examples/ex-root.C`. Then compile with
    ```bash
