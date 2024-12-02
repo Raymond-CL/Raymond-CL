@@ -8,7 +8,8 @@ Table of contents:
 [WSL](WSL-setup.md#setup-wsl),
 [Git](WSL-setup.md#setup-git),
 [compilers](WSL-setup.md#setup-compilers),
-[ROOT](WSL-setup.md#setup-root),
+[Root](WSL-setup.md#setup-root),
+[HepMC](WSL-setup.md#setup-hepmc),
 [LHAPDF](WSL-setup.md#setup-lhapdf),
 [FastJet](WSL-setup.md#setup-fastjet),
 	
@@ -85,11 +86,13 @@ Table of contents:
 
 0. It is strongly recommended to install the GNU collection of compilers and support free software.
 1. Install C++ and Fortran compilers `sudo apt install build-essential gfortran`.
-2. Install Python environment `sudo apt install python3 python3-dev python3-numpy cython3 python-is-python3`.
+2. Install Python environment `sudo apt install python3 python3-dev python3-numpy cython3 python-is-python3`. \
+   It is worth noting that Ubuntu will not support Python 2 as of version 24.04. \
+   This means that you will not be able to install `python` through the `apt` package manager.
 3. Install some utilities `sudo apt install binutils cmake dpkg-dev htop mpich`. \
    optimize with `alias htop='htop -d 20 -u $(whoami) -s Command'`
 
-## setup ROOT
+## setup Root
 
 0. Root require some libraries before installation, the core libraries can be install with
    ```bash
@@ -125,14 +128,15 @@ Table of contents:
    ```
    which should produce a `.pdf` file and can be opened with VScode.
 
-## setup HEPMC
+## setup HepMC
 
 0. It is recommended to install ROOT before installing HEPMC3 (So that `ROOTIO` can be of use).
 1. Check [here](https://hepmc.web.cern.ch/hepmc/index.html) for the latest release version of HEPMC3 and copy the link. \
    Download and install with:
    ```bash
    mkdir $HOME/prog_hepmc3 && cd $HOME/prog_hepmc3
-   wget https://hepmc.web.cern.ch/hepmc/releases/HepMC3-3.3.0.tar.gz -O hepmc3_src
+   wget https://hepmc.web.cern.ch/hepmc/releases/HepMC3-3.3.0.tar.gz -O hepmc3.tar.gz
+   tar -xf hepmc3.tar.gz
    mkdir ./hepmc3_build && cd ./hepmc3_build
    cmake -DCMAKE_INSTALL_PREFIX=/usr \
      -DHEPMC3_ENABLE_ROOTIO:BOOL=ON \
@@ -145,13 +149,14 @@ Table of contents:
      -DHEPMC3_ENABLE_PYTHON:BOOL=ON \
      -DHEPMC3_PYTHON_VERSIONS=3.12 \
      -DHEPMC3_Python_SITEARCH=/usr/lib/python3.12/site-packages \
-     ../hepmc3_src
+     ../HepMC3-3.3.0
    sudo make -j8 install
    ```
    Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
    which is a bit different from the procedure given [here](https://gitlab.cern.ch/hepmc/HepMC3), but no matter.
 2. We can then verify the installation with `HepMC3-config --version` and show features with `HepMC3-config --features`.
-3. We now test an example, copy the codes from [this](https://hepmc.web.cern.ch/hepmc/basic_tree_8cc-example.html) online example to `$HOME/examples/ex-hepmc.cc`. Then compile with
+3. We now test an example, copy the codes from [this](https://hepmc.web.cern.ch/hepmc/basic_tree_8cc-example.html) online example to `$HOME/examples/ex-hepmc.cc`. \
+   Then compile with
    ```bash
    g++ $HOME/examples/ex-hepmc.cc -o $HOME/examples/ex-hepmc `HepMC3-config --cflags --ldflags`
    ```
@@ -159,96 +164,51 @@ Table of contents:
 ## setup LHAPDF
 
 0. It is recommended to get the C++ version (LHAPDF6) instead of the Fortran version (LHAPDF5). \
-   We will create a temporary folder for the installation `mkdir $HOME/prog_lhapdf6 && cd prog_lhapdf6`.
-1. Download the tarball or follow the instructions [online](https://lhapdf.hepforge.org/install.html).
+   Note that it does require Python, install Python first.
+1. Check [here](https://lhapdf.hepforge.org/downloads/) for the latest release version of LHAPDF6. \
+   Download and install with:
    ```bash
-   wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.5.4.tar.gz -O LHAPDF-6.5.4.tar.gz
-   tar xf LHAPDF-6.5.4.tar.gz
+   mkdir $HOME/prog_lhapdf6 && cd $HOME/prog_lhapdf6
+   wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.5.4.tar.gz -O lhapdf6.tar.gz
+   tar -xf lhapdf6.tar.gz
    cd LHAPDF-6.5.4
-   ```
-   You can check the latest version [here](https://lhapdf.hepforge.org/downloads/)
-2. It is worth noting that Ubuntu will not support Python 2 as of version 24.04. \
-   This means that you will not be able to install `python` through the `apt` package manager. \
-   We then need `sudo apt install python-is-python3` to replace all `python` commands with `python3`. \
-   We will also need `sudo apt install cython3` to correct some C-extension codes in python, such as `PyLongObject`. \
-   We might as well get `sudo apt install python3-dev` for some development libraries.
-3. We can now install LHAPDF6 (need root permission) with the following:
-   ```bash
    sudo ./configure --prefix=/usr
    sudo make
    sudo make install
    ```
-   We can verify with `lhapdf help` and see that `listdir` and `pdfdir` has the correct directory `/usr/share/LHAPDF`.
-4. We will need to install some PDF sets with `lhapdf` (need permission). \
+   Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
+   You can check out the recommended installation guide [here](https://lhapdf.hepforge.org/install.html).
+2. We can verify the installation with `lhapdf --version`. \
+   We can also see that `listdir` and `pdfdir` when entered `lhapdf --help` has the correct default directory `/usr/share/LHAPDF`.
+3. We will need to install some PDF sets with `lhapdf` (need permission). \
    run `sudo lhapdf install CT18NNLO` to download the CTEQ18 NNLO PDF set to `/usr/share/LHAPDF`.
-5. Verify by compiling the following code:
-   ```cpp
-   #include "LHAPDF/LHAPDF.h"
-   #include <iostream>
-   using namespace LHAPDF;
- 
-   int main() { 
-     const PDF* pdf = mkPDF("CT18NNLO",0);
-     std::cout << pdf->xfxQ(0, 0.1, 1000.) << endl;
-     delete pdf;
-     return 0;
-   }
-   ```
-   with
+4. We now test an example, copy the codes from [this](https://lhapdf.hepforge.org/_2examples_2testpdf_8cc-example.html) online example to `$HOME/examples/ex-lhapdf.cc`. \
+   Then compile and run with (takes about half a minute):
    ```bash
-   g++ ex-pdf.cc -o example-pdf `lhapdf-config --cflags --libs`
+   g++ $HOME/examples/ex-lhapdf.cc -o $HOME/examples/ex-lhapdf `lhapdf-config --cflags --libs`
+   $HOME/examples/ex-lhapdf CT18NNLO 0
    ```
 
 ## setup FastJet
 
-0. We will create a temporary folder for the installation `mkdir $HOME/prog_fastjet3 && cd prog_fastjet3`. \
-1. Download the tarball or follow the instructions [online](https://fastjet.fr/quickstart.html).
+0. Note that it does require Python, install Python first.
+1. Check [here](https://fastjet.fr/all-releases.html) for the latest release version of FastJet3. \
+   Download and install with:
    ```bash
-   wget https://fastjet.fr/repo/fastjet-3.4.3.tar.gz
-   tar xf fastjet-3.4.3.tar.gz
-   cd fastjet-3.4.3.tar.gz
-   ```
-   You can check the latest version [here](https://fastjet.fr/all-releases.html).
-2. We can now install FastJet3 (need root permission) with the following:
-   ```bash
-   sudo ./configure --prefix=/usr --enable-allplugins
+   mkdir $HOME/prog_fastjet3 && cd $HOME/prog_fastjet3
+   wget https://fastjet.fr/repo/fastjet-3.4.3.tar.gz -O fastjet3.tar.gz
+   tar -xf fastjet3.tar.gz
+   cd fastjet-3.4.3
+   sudo ./configure --prefix=/usr --enable-allplugins --enable-pyext
    sudo make
    sudo make install
    ```
-   It is not necessary to include the last flag, which are some uncommon jet algorithms used by D0, ATLAS and CMS. But it doesn't hurt to install all. \
-   We can verify with `fastjet-config --version`.
-3. Verify by compiling the following code (or the example [online](https://fastjet.fr/quickstart.html)):
-   ```cpp
-   #include "fastjet/ClusterSequence.hh"
-   #include <iostream>
-   using namespace fastjet;
-
-   int main(){
-     std::vector<PseudoJet> particles;
-     particles.push_back(PseudoJet( 100.0,  0.0, 0.0, 100.0));
-     particles.push_back(PseudoJet(   5.0,  0.1, 0.0,   5.0));
-     particles.push_back(PseudoJet( -50.0,  0.0, 0.0,  50.0));
-     particles.push_back(PseudoJet(  -5.0,  0.5, 0.0,   5.0));
-
-     JetDefinition jetR07(antikt_algorithm,0.7), jetR04(antikt_algorithm,0.4);
-     ClusterSequence cs07(particles,jetR07), cs04(particles,jetR04);
-     std::vector<PseudoJet> jets;
-
-     jets = sorted_by_pt(cs07.inclusive_jets());
-     std::cout << jetR07.description() << std::endl;
-     for (unsigned i = 0; i < jets.size(); i++){
-       std::cout << "jet " << i+1 
-                 << " with pt = " << jets[i].pt() 
-                 << " and phi = " << jets[i].phi() 
-                 << " containing " << jets[i].constituents().size() 
-                 << " constituents.\n";
-     }
-   }
-   ```
-   with
+   Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
+   It is not necessary to include the last 2 flags, which are some uncommon jet algorithms used by D0, ATLAS and CMS. But it doesn't hurt to install all. \
+   You can check out the recommended installation guide [here](https://fastjet.fr/quickstart.html).
+2. We can then verify the installation with `fastjet-config --version` and show plugins with `fastjet-config --list-plugins`.
+3. We now test an example, copy the codes from [this](https://fastjet.fr/quickstart.html) online example to `$HOME/examples/ex-fastjet.cc`. \
+   Then compile with:
    ```bash
-   g++ ex-fjet.cc -o example-fjet `fastjet-config --cxxflags --libs`
+   g++ $HOME/examples/ex-fastjet.cc -o $HOME/examples/ex-fastjet `fastjet-config --cxxflags --libs`
    ```
-
-
-0. 
