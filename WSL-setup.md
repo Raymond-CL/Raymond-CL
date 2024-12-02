@@ -83,8 +83,9 @@ Table of contents:
 ## setup compilers
 
 0. It is strongly recommended to install the GNU collection of compilers and support free software.
-1. Install some common compilers `sudo apt install build-essential gfortran python3 python3-dev python3-numpy cython3 python-is-python3`.
-2. Install some utilities `sudo apt install binutils cmake dpkg-dev git htop mpich`. \
+1. Install C++ and Fortran compilers `sudo apt install build-essential gfortran`.
+2. Install Python environment `sudo apt install python3 python3-dev python3-numpy cython3 python-is-python3`.
+3. Install some utilities `sudo apt install binutils cmake dpkg-dev htop mpich`. \
    optimize with `alias htop='htop -d 20 -u $(whoami) -s Command'`
 
 ## setup ROOT
