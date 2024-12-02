@@ -8,6 +8,7 @@ Table of contents:
 [WSL](WSL-setup.md#setup-wsl),
 [Git](WSL-setup.md#setup-git),
 [compilers](WSL-setup.md#setup-compilers),
+[ROOT](WSL-setup.md#setup-root),
 [LHAPDF](WSL-setup.md#setup-lhapdf),
 [FastJet](WSL-setup.md#setup-fastjet),
 	
@@ -108,14 +109,15 @@ Table of contents:
    mkdir ~/prog_root6
    git clone --branch latest-stable --depth=1 https://github.com/root-project/root.git ~/prog_root6/root_src
    mkdir ~/prog_root6/root_build && cd ~/prog_root6/root_build
-   cmake -DCMAKE_INSTALL_PREFIX=/usr ../root_src
+   cmake -DCMAKE_INSTALL_PREFIX=/usr -Dgnuinstall=ON -Dbuiltin_xrootd=ON ../root_src
    sudo make -j8
    sudo make install
    ```
    Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
+   There are some libraries that are ignored, such as CUDA-compiler, `cudnn`, PostgreSQL, SQLite, Davix, OCaml, RapidYAML. But they are not necessary. \
    Because the make process might take an hour, I'm using 8 cores to build those binaries.
-2. We can then verify the installation with `root --version` and show features with `root-config --features`.
-3. We now test an example, copy the codes from [this](https://root.cern.ch/root/htmldoc/guides/primer/ROOTPrimer.html#a-more-complete-example) online example to `~/examples/ex-root.C`. Then compile with
+3. We can then verify the installation with `root --version` and show features with `root-config --features`.
+4. We now test an example, copy the codes from [this](https://root.cern.ch/root/htmldoc/guides/primer/ROOTPrimer.html#a-more-complete-example) online example to `~/examples/ex-root.C`. Then compile with
    ```bash
    g++ ~/examples/ex-root.C -o ~/examples/ex-root `root-config --cflags --libs`
    ```
