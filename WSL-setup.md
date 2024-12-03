@@ -94,7 +94,7 @@ Table of contents:
 
 0. It is strongly recommended to install the GNU collection of compilers and support free software.
 1. Install C++ and Fortran compilers `sudo apt install build-essential gfortran`.
-2. Install Python environment `sudo apt install python3 python3-dev python3-numpy cython3 python-is-python3`. \
+2. Install Python environment `sudo apt install python3 python3-dev python3-numpy python3-pip cython3 python-is-python3`. \
    It is worth noting that Ubuntu will not support Python 2 as of version 24.04. \
    This means that you will not be able to install `python` through the `apt` package manager.
 3. Install some utilities `sudo apt install binutils cmake dpkg-dev htop mpich`. \
