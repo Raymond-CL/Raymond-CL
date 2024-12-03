@@ -136,6 +136,7 @@ Table of contents:
    g++ $HOME/examples/ex-root.C -o $HOME/examples/ex-root `root-config --cflags --libs`
    ```
    which should produce a `.pdf` file and can be opened with VScode.
+4. Add `/usr/include/root` in the `$HOME/.vscode/c_cpp_properties.json` file under `IncludePath` so that VScode IntelliSense can recognize the class members and methods.
 
 ## setup HepMC
 
@@ -335,7 +336,7 @@ Table of contents:
    ```
    where the results will be in the `./result/hhc` directory. \
    Note that the accompanied `Makefile` has a similar compile command, but that the `cteqpdf` is assumed to installed in `$HOME/`.
-4. You might want to add `/usr/include/cteq` and `/usr/include/nlo++` in the 
+4. Add `/usr/include/cteq` and `/usr/include/nlo++` in the `$HOME/.vscode/c_cpp_properties.json` file under `IncludePath` so that VScode IntelliSense can recognize the class members and methods.
    
 ## MadGraph
 ## MCFM
