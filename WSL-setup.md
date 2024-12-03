@@ -17,6 +17,7 @@ Table of contents:
 [FastJet](WSL-setup.md#setup-fastjet),
 [HDF5](WSL-setup.md#setup-hdf5),
 [PYTHIA](WSL-setup.md#setup-pythia),
+[NLOjet++](WSL-setup.md#setup-nlojet++),
 
 > [!NOTE]
 > Please respect the installation destination, always install in system directory `/usr`, not `/usr/local`, nor `$HOME/`.
@@ -332,7 +333,9 @@ Table of contents:
    nlojet++ --calculate -n dijet -c full -u ./twojet.la --max-event 1000000
    nlojet++ --add dijet -u ./twojet.la 
    ```
-   where the results will be in the `./result/hhc` directory
+   where the results will be in the `./result/hhc` directory. \
+   Note that the accompanied `Makefile` has a similar compile command, but that the `cteqpdf` is assumed to installed in `$HOME/`.
+4. You might want to add `/usr/include/cteq` and `/usr/include/nlo++` in the 
    
-## MCFM
 ## MadGraph
+## MCFM
