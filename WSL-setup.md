@@ -1,8 +1,11 @@
 # WSL-setup
 
 setup procedure for *Windows Subsystem for Linux* (WSL). \
+The following guide shows how one can install and setup some of the most common applications and utilities needed for numerical analysis in high-energy physics. \
+The setup is for a WSL environment, and also suitable for Ubuntu operating systems. Not for Mac OS or other Linux distributions. \
 If you are reading this on Github, click on the top right button to show table of contents. \
-Most of the operations below required that you have a stable internet connection.
+Most of the operations below required that you have a stable internet connection. \
+Most of the application or packages will first be downloaded in the `$HOME/prog_PACKAGE` directory, which can be deleted after installation to free up disk usage. \
 
 Table of contents:
 [WSL](WSL-setup.md#setup-wsl),
@@ -14,27 +17,9 @@ Table of contents:
 [FastJet](WSL-setup.md#setup-fastjet),
 [HDF5](WSL-setup.md#setup-hdf5),
 [PYTHIA](WSL-setup.md#setup-pythia),
-	
-## setup WSL
-
-0. Show the list of installed WSL distributions in your system by running `wsl --list` or `wslconfig /l` in *Windows Powershell*. \
-   Where you can unregister a distribution for a clean installation with `wsl --unregister Ubuntu` or `wslconfig /u Ubuntu`.
-1. List the available WSL distributions online by running `wsl --list --online`. \
-   We then choose to install the lastest Ubuntu distribution with `wsl --install Ubuntu`. \
-   You can find more information [here](https://learn.microsoft.com/en-us/windows/wsl/).
-2. Complete the Ubuntu setup by entering a user name and password, then *Powershell* will automatically open the new Ubuntu kernel.
-3. We can verify the install by showing the installation version with `hostnamectl`.
-4. Update Ubuntu packages with the following `sudo apt update && sudo apt upgrade && sudo apt autoremove`.
-5. It is then recommended to code using Visual Studio Code. \
-   If you don't have it installed, get the Windows version from [here](https://code.visualstudio.com/Download). \
-   Then simply enter `code .` in WSL to open remote connect from Windows to WSL via VScode.
-6. To access WSL files in Windows, simply enter `explorer.exe .` in WSL to open a connection. \
-   Depending on your WSL version, it will either be in the user directory, or a localhost network.
-7. From now on, we will run WSL via VScode using a remote connection. \
-   Open VScode in Windows, then click the bottom left blue button, or `ctrl+shift+P` and enter WSL.
 
 > [!NOTE]
-> Please respect the installation destination, always install in `/usr`, not `/usr/local`, nor `$HOME/`.
+> Please respect the installation destination, always install in system directory `/usr`, not `/usr/local`, nor `$HOME/`.
 > Because sometimes the program might not have permission to access certain directories and might behave weirdly.
 ```
 ├── home
@@ -55,6 +40,27 @@ Table of contents:
         ├── lib
         └── share
 ```
+> Some people will worry that programs installed in system directory `/usr/bin` will polute the namespace or might crash the system.
+> Some people like to create a folder in their home directory `$HOME/` for a more local installation and safety.
+> Which is fine, just remember to set the paths correctly. Here, I am following the *for dummies* method.
+
+## setup WSL
+
+0. Show the list of installed WSL distributions in your system by running `wsl --list` or `wslconfig /l` in *Windows Powershell*. \
+   Where you can unregister a distribution for a clean installation with `wsl --unregister Ubuntu` or `wslconfig /u Ubuntu`.
+1. List the available WSL distributions online by running `wsl --list --online`. \
+   We then choose to install the lastest Ubuntu distribution with `wsl --install Ubuntu`. \
+   You can find more information [here](https://learn.microsoft.com/en-us/windows/wsl/).
+2. Complete the Ubuntu setup by entering a user name and password, then *Powershell* will automatically open the new Ubuntu kernel.
+3. We can verify the install by showing the installation version with `hostnamectl`.
+4. Update Ubuntu packages with the following `sudo apt update && sudo apt upgrade && sudo apt autoremove`.
+5. It is then recommended to code using Visual Studio Code. \
+   If you don't have it installed, get the Windows version from [here](https://code.visualstudio.com/Download). \
+   Then simply enter `code .` in WSL to open remote connect from Windows to WSL via VScode.
+6. To access WSL files in Windows, simply enter `explorer.exe .` in WSL to open a connection. \
+   Depending on your WSL version, it will either be in the user directory, or a localhost network.
+7. From now on, we will run WSL via VScode using a remote connection. \
+   Open VScode in Windows, then click the bottom left blue button, or `ctrl+shift+P` and enter WSL.
 
 ## setup Git
 
@@ -103,10 +109,10 @@ Table of contents:
    Then there are other optional packages (but we'll install them anyway) that can be install with
    ```bash
    sudo apt install libavahi-compat-libdnssd-dev libblas-dev libcfitsio-dev libedit-dev \
-   libfftw3-dev libftgl-dev libgl2ps-dev libglew-dev libglu1-mesa-dev libgraphviz-dev libgsl-dev \
-   libjpeg-dev libjpeg-dev libkrb5-dev libldap2-dev liblz4-dev liblzma-dev libmysqlclient-dev \
-   libpcre2-dev libpcre3-dev libtiff-dev libtiff-dev libxml2-dev libxxhash-dev libzstd-dev \
-   nlohmann-json3-dev postgresql qtwebengine5-dev sqlite3 terminfo
+     libfftw3-dev libftgl-dev libgl2ps-dev libglew-dev libglu1-mesa-dev libgraphviz-dev libgsl-dev \
+     libjpeg-dev libjpeg-dev libkrb5-dev libldap2-dev liblz4-dev liblzma-dev libmysqlclient-dev \
+     libpcre2-dev libpcre3-dev libtiff-dev libtiff-dev libxml2-dev libxxhash-dev libzstd-dev \
+     nlohmann-json3-dev postgresql qtwebengine5-dev sqlite3 terminfo
    ```
    These dependencies are a bit different from the official recommendations [here](https://root.cern/install/dependencies/).
 1. It is recommended to build from [source](https://root.cern/install/#build-from-source). \
@@ -291,3 +297,7 @@ Table of contents:
    ```bash
    make main402 && ./main402 > main402.out
    ```
+
+## MCFM
+## NLOJET++
+## MadGraph
