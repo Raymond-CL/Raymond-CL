@@ -17,7 +17,7 @@ Table of contents:
 [FastJet](WSL-setup.md#setup-fastjet),
 [HDF5](WSL-setup.md#setup-hdf5),
 [PYTHIA](WSL-setup.md#setup-pythia),
-[NLOjet++](WSL-setup.md#setup-nlojet++),
+[NLOjet](WSL-setup.md#setup-nlojet),
 
 > [!NOTE]
 > Please respect the installation destination, always install in system directory `/usr`, not `/usr/local`, nor `$HOME/`.
@@ -300,7 +300,7 @@ Table of contents:
    make main402 && ./main402 > main402.out
    ```
 
-## NLOJET++
+## NLOJET
 
 0. We need to download and install `cteqpdf` that works hand-in-hand from [here](https://www.desy.de/~znagy/Site/CTEQ_PDF.html). \
    ```bash
