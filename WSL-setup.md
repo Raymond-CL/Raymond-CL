@@ -18,6 +18,8 @@ Table of contents:
 [HDF5](WSL-setup.md#setup-hdf5),
 [PYTHIA](WSL-setup.md#setup-pythia),
 [NLOjet](WSL-setup.md#setup-nlojet),
+[MadGraph](WSL-setup.md#setup-madgraph),
+[MCFM](WSL-setup.md#setup-mcfm),
 
 > [!NOTE]
 > Please respect the installation destination, always install in system directory `/usr`, not `/usr/local`, nor `$HOME/`.
@@ -300,7 +302,7 @@ Table of contents:
    make main402 && ./main402 > main402.out
    ```
 
-## NLOJET
+## setup NLOJET
 
 0. We need to download and install `cteqpdf` that works hand-in-hand from [here](https://www.desy.de/~znagy/Site/CTEQ_PDF.html). \
    ```bash
@@ -338,5 +340,5 @@ Table of contents:
    Note that the accompanied `Makefile` has a similar compile command, but that the `cteqpdf` is assumed to installed in `$HOME/`.
 4. Add `/usr/include/cteq` and `/usr/include/nlo++` in the `$HOME/.vscode/c_cpp_properties.json` file under `IncludePath` so that VScode IntelliSense can recognize the class members and methods.
    
-## MadGraph
-## MCFM
+## setup MadGraph
+## setup MCFM
