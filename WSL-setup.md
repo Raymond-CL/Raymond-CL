@@ -34,7 +34,11 @@ Table of contents:
 ├── home
 │   └── $(whoami) [home directory]
 │       ├── examples
+│       ├── prog_fastjet3
+│       ├── prog_hdf5
+│       ├── prog_hepmc3
 │       ├── prog_lhapdf6
+│       ├── prog_nlojet
 │       ├── prog_pythia8
 │       └── prog_root6
 ├── mnt
