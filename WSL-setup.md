@@ -22,8 +22,11 @@ Table of contents:
 [MCFM](WSL-setup.md#setup-mcfm),
 
 > [!NOTE]
-> Please respect the installation destination, always install in system directory `/usr`, not `/usr/local`, nor `$HOME/`.
-> Because sometimes the program might not have permission to access certain directories and might behave weirdly.
+> Please respect the installation destination. \
+> `/usr` is reserved for packages installed by `apt`. \
+> `/usr/local` is where we will install these 3rd-party programmes. \
+> `$HOME` is where we keep some of the source codes, examples, and develop our projects. \
+> This is just my convention, it will save time configuring system `$PATH`, but some steps will need root access.
 ```
 ├── home
 │   └── $(whoami) [home directory]
@@ -32,20 +35,25 @@ Table of contents:
 │       ├── prog_pythia8
 │       └── prog_root6
 ├── mnt
-└── usr [install here]
-    ├── bin [binary files]
-    ├── include [header .h files]
-    ├── lib [library .so files]
-    ├── share [usually data files]
-    └── local [don't install here !!!]
-        ├── bin
-        ├── include
-        ├── lib
-        └── share
+└── usr [packages managed by apt]
+    ├── bin
+    ├── include
+    ├── lib
+    ├── share
+    └── local [please install here]
+        ├── bin [binary files]
+        ├── include [header .h files]
+        ├── lib [library .so files]
+        └── share [usually data files]
 ```
-> Some people will worry that programs installed in system directory `/usr/bin` will polute the namespace or might crash the system.
-> Some people like to create a folder in their home directory `$HOME/` for a more local installation and safety.
-> Which is fine, just remember to set the paths correctly. Here, I am following the *for dummies* method.
+
+### before we begin
+- Since we are installing most of the programs in `/usr/local`, WSL should automatically recognize the paths to binaries, headers, and libraries.
+- If not, append path to binaries with `export PATH=/path/to/binary:$PATH`.
+- append path to libraries with `export LD_LIBRARY_PATH=/path/to/libraries:$LD_LIBRARY_PATH`. \
+  If the path to library is `usr/lib` or `/usr/local/lib` and Ubuntu couldn't link the libraries, try `sudo ldconfig` first before exporting.
+- append path to Python libraries with `export PYTHONPATH=/path/to/python/libraries:$PYTHONPATH`.
+
 
 ## setup WSL
 
@@ -115,7 +123,7 @@ Table of contents:
      libfftw3-dev libftgl-dev libgl2ps-dev libglew-dev libglu1-mesa-dev libgraphviz-dev libgsl-dev \
      libjpeg-dev libjpeg-dev libkrb5-dev libldap2-dev liblz4-dev liblzma-dev libmysqlclient-dev \
      libpcre2-dev libpcre3-dev libtiff-dev libtiff-dev libxml2-dev libxxhash-dev libzstd-dev \
-     nlohmann-json3-dev postgresql qtwebengine5-dev sqlite3 terminfo
+     nlohmann-json3-dev postgresql qtwebengine5-dev terminfo
    ```
    These dependencies are a bit different from the official recommendations [here](https://root.cern/install/dependencies/).
 1. It is recommended to build from [source](https://root.cern/install/#build-from-source). \
@@ -123,26 +131,25 @@ Table of contents:
    mkdir $HOME/prog_root6 && cd $HOME/prog_root6
    git clone --branch latest-stable --depth=1 https://github.com/root-project/root.git ./root6_src
    mkdir ./root6_build && cd ./root6_build
-   cmake -DCMAKE_INSTALL_PREFIX=/usr \
+   cmake -DCMAKE_INSTALL_PREFIX=/usr/local \
      -Dgnuinstall=ON \
      -Dbuiltin_xrootd=ON \
      ../root6_src
    sudo make -j8 install
    ```
-   Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
    There are some libraries that are ignored, such as CUDA-compiler, `cudnn`, PostgreSQL, SQLite, Davix, OCaml, RapidYAML. But they are not necessary. \
-   Because the make process might take an hour, I'm using 8 cores to build those binaries.
-2. We can then verify the installation with `root --version` and show features with `root-config --features`.
-3. We now test an example, copy the codes from [this](https://root.cern.ch/root/htmldoc/guides/primer/ROOTPrimer.html#a-more-complete-example) online example to `$HOME/examples/ex-root.C`. Then compile with
+   Because the make process might take an hour, I'm using 8 cores to build those binaries. \
+   Keep an eye on the memory, the installation takes alot of memory, reduce the parallel core number.
+3. We can then verify the installation with `root --version` and show features with `root-config --features`.
+4. We now test an example, copy the codes from [this](https://root.cern.ch/root/htmldoc/guides/primer/ROOTPrimer.html#a-more-complete-example) online example to `$HOME/examples/ex-root.C`. Then compile with
    ```bash
    g++ $HOME/examples/ex-root.C -o $HOME/examples/ex-root `root-config --cflags --libs`
    ```
    which should produce a `.pdf` file and can be opened with VScode.
-4. Add `/usr/include/root` in the `$HOME/.vscode/c_cpp_properties.json` file under `IncludePath` so that VScode IntelliSense can recognize the class members and methods.
 
 ## setup HepMC
 
-0. It is recommended to install ROOT before installing HEPMC3 (So that `ROOTIO` can be of use).
+0. We can install ROOT before installing HEPMC3 to test some `ROOTIO` examples, but not necessary.
 1. Check [here](https://hepmc.web.cern.ch/hepmc/index.html) for the latest release version of HEPMC3 and copy the link. \
    Download and install with:
    ```bash
@@ -150,8 +157,8 @@ Table of contents:
    wget https://hepmc.web.cern.ch/hepmc/releases/HepMC3-3.3.0.tar.gz -O hepmc3.tar.gz
    tar -xf hepmc3.tar.gz
    mkdir ./hepmc3_build && cd ./hepmc3_build
-   cmake -DCMAKE_INSTALL_PREFIX=/usr \
-     -DHEPMC3_ENABLE_ROOTIO:BOOL=ON \
+   cmake -DCMAKE_INSTALL_PREFIX=/usr/local \
+     -DHEPMC3_ENABLE_ROOTIO:BOOL=OFF \
      -DHEPMC3_ENABLE_PROTOBUFIO:BOOL=OFF \
      -DHEPMC3_ENABLE_TEST:BOOL=ON \
      -DHEPMC3_INSTALL_INTERFACES:BOOL=ON \
@@ -160,11 +167,10 @@ Table of contents:
      -DHEPMC3_BUILD_EXAMPLES:BOOL=ON \
      -DHEPMC3_ENABLE_PYTHON:BOOL=ON \
      -DHEPMC3_PYTHON_VERSIONS=3.12 \
-     -DHEPMC3_Python_SITEARCH=/usr/lib/python3.12/site-packages \
+     -DHEPMC3_Python_SITEARCH=/usr/local/lib/python3.12/dist-packages \
      ../HepMC3-3.3.0
    sudo make -j8 install
    ```
-   Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
    which is a bit different from the procedure given [here](https://gitlab.cern.ch/hepmc/HepMC3), but no matter.
 2. We can then verify the installation with `HepMC3-config --version` and show features with `HepMC3-config --features`.
 3. We now test an example, copy the codes from [this](https://hepmc.web.cern.ch/hepmc/basic_tree_8cc-example.html) online example to `$HOME/examples/ex-hepmc.cc`. \
