@@ -347,13 +347,12 @@ Table of contents:
    ```
    Compile, run and add results with:
    ```bash
-   create-nlojet-user twojet.cc -o twojet -Wx,-D_KT_,-O3,-Wall,-I/usr/include/cteq -Wl,-lcteqpdf
+   create-nlojet-user twojet.cc -o twojet -Wx,-D_KT_,-O3,-Wall,-I/usr/local/include/cteq -Wl,-lcteqpdf
    nlojet++ --calculate -n dijet -c full -u ./twojet.la --max-event 1000000
    nlojet++ --add dijet -u ./twojet.la 
    ```
    where the results will be in the `./result/hhc` directory. \
    Note that the accompanied `Makefile` has a similar compile command, but that the `cteqpdf` is assumed to installed in `$HOME/`.
-4. Add `/usr/include/cteq` and `/usr/include/nlo++` in the `$HOME/.vscode/c_cpp_properties.json` file under `IncludePath` so that VScode IntelliSense can recognize the class members and methods.
    
 ## setup MadGraph
 
