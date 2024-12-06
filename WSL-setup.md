@@ -244,7 +244,7 @@ Table of contents:
    $HOME/examples/ex-lhapdf CT18NNLO 0
    ```
 5. There is a `plotpdfs` python script in the source code directory. \
-   If you need to run a test, you need to install `python3-matplotlib`, `texlive`, and `cm-super`. \
+   If you need to run a test (need to export those paths again), you need to install `python3-matplotlib`, `texlive`, and `cm-super`. \
    Then run it with `./plotpdfs CT18NNLO`, which will produce some `.pdf` plots.
 
 ## setup FastJet
