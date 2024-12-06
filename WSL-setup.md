@@ -51,7 +51,8 @@ Table of contents:
 - Since we are installing most of the programs in `/usr/local`, WSL should automatically recognize the paths to binaries, headers, and libraries.
 - If not, append path to binaries with `export PATH=/path/to/binary:$PATH`.
 - append path to libraries with `export LD_LIBRARY_PATH=/path/to/libraries:$LD_LIBRARY_PATH`. \
-  If the path to library is `usr/lib` or `/usr/local/lib` and Ubuntu couldn't link the libraries, try `sudo ldconfig` first before exporting.
+  When new libraries are added to `/usr/lib` or `/usr/local/lib`, usually right after fresh installation, the `ld.so.conf` file is not updated. \
+  The system then might not be able to search for the new libraries, so running `sudo ldconfig` might help before exporting to `LD_LIBRARY_PATH`.
 - append path to Python libraries with `export PYTHONPATH=/path/to/python/libraries:$PYTHONPATH`.
 
 
@@ -136,6 +137,7 @@ Table of contents:
      -Dbuiltin_xrootd=ON \
      ../root6_src
    sudo make -j8 install
+   sudo ldconfig
    ```
    There are some libraries that are ignored, such as CUDA-compiler, `cudnn`, PostgreSQL, SQLite, Davix, OCaml, RapidYAML. But they are not necessary. \
    Because the make process might take an hour, I'm using 8 cores to build those binaries. \
@@ -170,6 +172,7 @@ Table of contents:
      -DHEPMC3_Python_SITEARCH=/usr/local/lib/python3.12/dist-packages \
      ../HepMC3-3.3.0
    sudo make -j8 install
+   sudo ldconfig
    ```
    which is a bit different from the procedure given [here](https://gitlab.cern.ch/hepmc/HepMC3), but no matter.
 2. We can then verify the installation with `HepMC3-config --version` and show features with `HepMC3-config --features`.
@@ -190,17 +193,26 @@ Table of contents:
    wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.5.4.tar.gz -O lhapdf6.tar.gz
    tar -xf lhapdf6.tar.gz
    cd LHAPDF-6.5.4
-   sudo ./configure --prefix=/usr
-   sudo make
-   sudo make install
+   sudo ./configure --prefix=/usr/local
+   sudo make -j4 install
+   sudo ldconfig
    ```
-   Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
    You can check out the recommended installation guide [here](https://lhapdf.hepforge.org/install.html).
-2. We can verify the installation with `lhapdf --version`. \
-   We can also see that `listdir` and `pdfdir` when entered `lhapdf --help` has the correct default directory `/usr/share/LHAPDF`.
-3. We will need to install some PDF sets with `lhapdf` (need permission). \
-   run `sudo lhapdf install CT18NNLO` to download the CTEQ18 NNLO PDF set to `/usr/share/LHAPDF`.
-4. We now test an example, copy the codes from [this](https://lhapdf.hepforge.org/_2examples_2testpdf_8cc-example.html) online example to `$HOME/examples/ex-lhapdf.cc`. \
+2. We can verify the installation with `lhapdf --version`.
+3. We will need to install some PDF sets with `lhapdf` (need permission), create the following script `getpdf.sh`:
+   ```shell
+   #!/bin/bash
+   export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+   export PYTHONPATH=/usr/local/local/lib/python3.12/dist-packages/lhapdf:$PYTHONPATH
+   lhapdf install ${1:-CT18NNLO}
+
+   ```
+   Because we don't need to download and install using `lhapdf` most of the time, there is no need to configure `ld.so.conf` permanently. \
+   run the script with permission `sudo ./getpdf.sh <pdf-set-name>` to download and install the PDF, or leave it empty to get only `CT18NNLO` set. \
+   Keep in mind that in WSL, the user is not root, but can promote to root with their own password. \
+   Thus, this step can also be done by first `sudo su` to enter root, then export the paths and run `lhapdf` to install PDF. \
+   When the two paths are set a shell, we can see that `listdir` and `pdfdir` when entered `lhapdf --help` displays the correct default directory `/usr/local/share/LHAPDF`.
+5. We now test an example, copy the codes from [this](https://lhapdf.hepforge.org/_2examples_2testpdf_8cc-example.html) online example to `$HOME/examples/ex-lhapdf.cc`. \
    Then compile and run with (takes about half a minute):
    ```bash
    g++ $HOME/examples/ex-lhapdf.cc -o $HOME/examples/ex-lhapdf `lhapdf-config --cflags --libs`
