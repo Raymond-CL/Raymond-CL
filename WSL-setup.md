@@ -42,6 +42,8 @@ Table of contents:
 │       ├── prog_pythia8
 │       └── prog_root6
 ├── mnt
+|   ├── c [Windows C drive]
+|   └── wslg [WSL distro if running WSL2]
 └── usr [packages managed by apt]
     ├── bin
     ├── include
