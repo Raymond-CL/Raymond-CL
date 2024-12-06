@@ -11,6 +11,9 @@ Table of contents:
 [WSL](WSL-setup.md#setup-wsl),
 [Git](WSL-setup.md#setup-git),
 [compilers](WSL-setup.md#setup-compilers),
+[utilities](WSL-setup.md#setup-utilities),
+[Python](WSL-setup.md#setup-python),
+[TexLive](WSL-setup.md#setup-texlive),
 [Root](WSL-setup.md#setup-root),
 [HepMC](WSL-setup.md#setup-hepmc),
 [LHAPDF](WSL-setup.md#setup-lhapdf),
@@ -104,13 +107,34 @@ Table of contents:
 
 ## setup compilers
 
-0. It is strongly recommended to install the GNU collection of compilers and support free software.
-1. Install C++ and Fortran compilers `sudo apt install build-essential gfortran`.
-2. Install Python environment `sudo apt install python3 python3-dev python3-numpy python3-pip cython3 python-is-python3`. \
-   It is worth noting that Ubuntu will not support Python 2 as of version 24.04. \
-   This means that you will not be able to install `python` through the `apt` package manager.
-3. Install some utilities `sudo apt install binutils cmake dpkg-dev htop mpich`. \
-   optimize with `alias htop='htop -d 20 -u $(whoami) -s Command'`
+0. It is strongly recommended to install the GNU collection of compilers (GCC) and support free software.
+1. Install C, C++ compiler `sudo apt install build-essential`.
+2. Install Fortran compiler `sudo apt install gfortran`.
+3. Install Assembly compiler `sudo apt install binutils`.
+
+## setup utilities
+
+1. Install some utilities `sudo apt install cmake dpkg-dev htop mpich`. \
+   optimize `htop` with `alias htop='htop -d 20 -u $(whoami) -s Command'`.
+   
+## setup Python
+
+0. It is worth noting that Ubuntu will not support Python-2 as of version 24.04. \
+   This means that you will not be able to install `python` or `python2` through the `apt` package manager. \
+   And `python3` is preinstalled in the latest Ubuntu.
+1. To get the base Python environment: `sudo apt install python3 python-is-python3`.
+2. To get the extra stuff: `sudo apt install python3-dev python3-numpy python3-pip cython3`. \
+   Note that `python3-dev` and `cython3` is needed to install `LHAPDF`.
+3. For plotting: `sudo apt install python3-matplotlib`.   
+
+## setup TexLive
+
+0. Install base `sudo apt install texlive-base`. (getting `texlive-full` might take up a lot of space)
+1. Install latex compiler `sudo apt install texlive-latex-base texlive-latex-extra texlive-latex-recommended`.
+2. Install latex fonts `sudo apt install texlive-fonts-extra texlive-fonts-recommended`.
+3. If you need `revtex4` for publication, install publishers `sudo apt install texlive-publishers`.
+4. If you need `simple wick` for Wicks contraction, install science `sudo apt install texlive-science`.
+5. There are other external packages like `cm-super`, install only when you need them.
 
 ## setup Root
 
@@ -213,12 +237,15 @@ Table of contents:
    Keep in mind that in WSL, the user is not root, but can promote to root with their own password. \
    Thus, this step can also be done by first `sudo su` to enter root, then export the paths and run `lhapdf` to install PDF. \
    When the two paths are set a shell, we can see that `listdir` and `pdfdir` when entered `lhapdf --help` displays the correct default directory `/usr/local/share/LHAPDF`.
-5. We now test an example, copy the codes from [this](https://lhapdf.hepforge.org/_2examples_2testpdf_8cc-example.html) online example to `$HOME/examples/ex-lhapdf.cc`. \
+4. We now test an example, copy the codes from [this](https://lhapdf.hepforge.org/_2examples_2testpdf_8cc-example.html) online example to `$HOME/examples/ex-lhapdf.cc`. \
    Then compile and run with (takes about half a minute):
    ```bash
    g++ $HOME/examples/ex-lhapdf.cc -o $HOME/examples/ex-lhapdf `lhapdf-config --cflags --libs`
    $HOME/examples/ex-lhapdf CT18NNLO 0
    ```
+5. There is a `plotpdfs` python script in the source code directory. \
+   If you need to run a test, you need to install `python3-matplotlib`, `texlive`, and `cm-super`. \
+   Then run it with `./plotpdfs CT18NNLO`, which will produce some `.pdf` plots.
 
 ## setup FastJet
 
