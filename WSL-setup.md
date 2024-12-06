@@ -325,6 +325,7 @@ Table of contents:
    cd cteq-pdf-1.0.4/
    ./configure --prefix=/usr/local
    sudo make -j4 install
+   sudo ldconfig
    ```
 1. We then download and install `nlojet++` from [here](https://www.desy.de/~znagy/Site/NLOJet++.html). \
    ```bash
@@ -334,6 +335,7 @@ Table of contents:
    cd nlojet++-4.1.3/
    ./configure --prefix=/usr/local
    sudo make -j4 install
+   sudo ldconfig
    ```
 2. we can verify the installation with `nlojet++ --help`.
 3. For testing, download the example modules from [here](https://www.desy.de/~znagy/Site/NLOJet++.html).
