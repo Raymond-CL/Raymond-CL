@@ -209,6 +209,7 @@ Table of contents:
    ```
    Because we don't need to download and install using `lhapdf` most of the time, there is no need to configure `ld.so.conf` permanently. \
    run the script with permission `sudo ./getpdf.sh <pdf-set-name>` to download and install the PDF, or leave it empty to get only `CT18NNLO` set. \
+   For convenience, move this script to `sudo mv getpdf.sh /usr/local/bin/` so it can be run anyway in the future. \
    Keep in mind that in WSL, the user is not root, but can promote to root with their own password. \
    Thus, this step can also be done by first `sudo su` to enter root, then export the paths and run `lhapdf` to install PDF. \
    When the two paths are set a shell, we can see that `listdir` and `pdfdir` when entered `lhapdf --help` displays the correct default directory `/usr/local/share/LHAPDF`.
@@ -229,11 +230,10 @@ Table of contents:
    wget https://fastjet.fr/repo/fastjet-3.4.3.tar.gz -O fastjet3.tar.gz
    tar -xf fastjet3.tar.gz
    cd fastjet-3.4.3/
-   sudo ./configure --prefix=/usr --enable-allplugins --enable-pyext
-   sudo make
-   sudo make install
+   sudo ./configure --prefix=/usr/local --enable-allplugins --enable-pyext
+   sudo make -j4 install
+   sudo ldconfig
    ```
-   Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
    It is not necessary to include the last 2 flags, which are some uncommon jet algorithms used by D0, ATLAS and CMS. But it doesn't hurt to install all. \
    You can check out the recommended installation guide [here](https://fastjet.fr/quickstart.html).
 2. We can then verify the installation with `fastjet-config --version` and show plugins with `fastjet-config --list-plugins`.
@@ -253,11 +253,10 @@ Table of contents:
    wget https://support.hdfgroup.org/releases/hdf5/v1_14/v1_14_5/downloads/hdf5-1.14.5.tar.gz -O hdf5.tar.gz
    tar -xf hdf5.tar.gz
    cd hdf5-1.14.5/
-   ./configure --prefix=/usr  --enable-fortran  --enable-cxx
-   sudo make
-   sudo make install
+   ./configure --prefix=/usr/local  --enable-fortran  --enable-cxx
+   sudo make -j4 install
+   sudo ldconfig
    ```
-   Here, I'm installing HDF5 to `/usr` so that we don't have to set path. \
    There are some features that are ignored, we don't really need them.
 2. We can then verify the installation with `h5dump --version` and show features with `h5cc -showconfig`.
    
@@ -272,17 +271,17 @@ Table of contents:
    wget https://pythia.org/download/pythia83/pythia8312.tar -O pythia8.tar
    tar -xf pythia8.tar
    cd pythia8312/
-   ./configure  --prefix=/usr \
+   ./configure  --prefix=/usr/local \
      --with-fastjet3 --with-hepmc3 --with-lhapdf6 --with-hdf5 \
      --with-python --with-python-include=/usr/include/python3.12/ \
      --with-mpich --with-mpich-include=/usr/lib/x86_64-linux-gnu/mpich/include/ \
      --with-root --with-gzip --with-openmp --cxx=g++
-   sudo make -j8 install
+   sudo make -j4 install
+   sudo ldconfig
    ```
-   Here, I'm installing ROOT to `/usr` so that we don't have to set path. \
    If the previous packages are installed correctly, the configuration process should not give error. \
    There are some packages that are ignored, such as PowhegBox and MagGraph5. But they are not necessary, for now. \
-   PYTHIA needs the path to `Python.h` and `mpich.h`. If you don't know where it is, find it in `/usr` with:
+   PYTHIA needs the path to `Python.h` and `mpich.h`. If you don't know where it is, find it in `/usr` with (because it is installed with `apt`):
    ```bash
    find . \( -name "Python.h" -o -name "mpi.h" \)
    ```
@@ -292,32 +291,28 @@ Table of contents:
    To test correct linking to a certain package, search for the package name (e.g. fastjet) in the online samples, and look for the corresponding program number. \
    To test the `FastJet3` package, run:
    ```bash
-   make main212 && ./main212 > main212.out
+   make main212 && ./main212 > main212.log
    ```
    To test the `HepMC3` package, run:
    ```bash
-   make main131 && ./main131 > main131.out
+   make main131 && ./main131 > main131.log
    ```
    To test the `LHAPDF6` package, run:
    ```bash
-   sudo lhapdf install NNPDF31_nnlo_as_0118_luxqed
-   make main201 && ./main201 > main201.out
+   sudo getpdf.sh NNPDF31_nnlo_as_0118_luxqed
+   make main201 && ./main201 > main201.log
    ```
    To test the `Python3` interface, run:
    ```bash
-   python main291.py > main291.out
-   ```
-   To test the `mpich` package, run:
-   ```bash
-   make main403 && ./main403 > main403.out
+   python main291.py > main291.log
    ```
    To test the `Root` package, run (produces `fig142.pdf`):
    ```bash
-   make main142 && ./main142 > main142.out
+   make main142 && ./main142 > main142.log
    ```
    To test the `openmp` package, run:
    ```bash
-   make main402 && ./main402 > main402.out
+   make main402 && ./main402 > main402.log
    ```
 
 ## setup NLOJET
@@ -328,8 +323,8 @@ Table of contents:
    wget http://desy.de/~znagy/hep-programs/cteq-pdf/cteq-pdf-1.0.4.tar.gz -O cteqpdf.tar.gz
    tar -xf cteqpdf.tar.gz
    cd cteq-pdf-1.0.4/
-   ./configure --prefix=/usr
-   sudo make install
+   ./configure --prefix=/usr/local
+   sudo make -j4 install
    ```
 1. We then download and install `nlojet++` from [here](https://www.desy.de/~znagy/Site/NLOJet++.html). \
    ```bash
@@ -337,8 +332,8 @@ Table of contents:
    wget http://desy.de/~znagy/hep-programs/nlojet++/nlojet++-4.1.3.tar.gz -O nlojet.tar.gz
    tar -xf nlojet.tar.gz
    cd nlojet++-4.1.3/
-   ./configure --prefix=/usr
-   sudo make install
+   ./configure --prefix=/usr/local
+   sudo make -j4 install
    ```
 2. we can verify the installation with `nlojet++ --help`.
 3. For testing, download the example modules from [here](https://www.desy.de/~znagy/Site/NLOJet++.html).
