@@ -45,11 +45,19 @@
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Raymond-CL&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
 
----
-
----
-
 <!---
+---
+
+### test area:
+<div>
+  <a href="https://gist.github.com/Raymond-CL/b5d5aa521418c6ba4484ea4017fde955">
+    my <code>.vimrc</code> settings
+  </a>
+</div>
+
+---
+
+
 A special thanks to Github community who has provided for me all the resources and codes that appear in this README.md, especially the .gif on the header, the badges, icons and stats. Seriously, Github is much better than Wordpress.
 </div>
 --->
