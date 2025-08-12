@@ -33,3 +33,5 @@ You can find and contact me from the links under my profile picture on the left.
 ![visits](https://komarev.com/ghpvc/?username=Raymond-CL&style=flat-square&color=blue)
 
 Last updated: August 2025
+
+> **Note:** I deleted most of my older repositories because the contents are redundant. I will recompile them into proper repositories later.
