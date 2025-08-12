@@ -7,10 +7,11 @@
 
 ---
 
-### :yin_yang: About me :
+### :yin_yang: About me
+
 - 👋 Hi, I’m Raymond
 - 👀 I am currently a postdoc researcher in high energy nuclear theory, with past experiences in theoretical physics and pure mathematics. My occupation comes with the privilege of dealing with coding on a daily basis. Usually in the language of Fortran, C++, LaTeX, and sometimes Mathematica.
-- 📫 You can shoot me an email on raymond.chen88@outlook.com, have fun coding.
+- 📫 You can shoot me an email on <raymond.chen88@outlook.com>, have fun coding.
 
 <div align="center" id="badges">
   <a href="https://www.linkedin.com/in/raymond-lin-chen-04050620b/" target="blank">
@@ -35,7 +36,8 @@
 
 ---
 
-### :hammer_and_wrench: Languages and Tools :
+### :hammer_and_wrench: Languages and Tools
+
 <div>
   <img src="https://github.com/vscode-icons/vscode-icons/blob/master/icons/file_type_fortran.svg" title="Fortran" alt="Fortran" width="40" height="40"/>&nbsp;
   <img src="https://github.com/vscode-icons/vscode-icons/blob/master/icons/file_type_cpp3.svg" title="Cpp" alt="Cpp" width="40" height="40"/>&nbsp;
@@ -56,7 +58,6 @@
 </div>
 
 ---
-
 
 A special thanks to Github community who has provided for me all the resources and codes that appear in this README.md, especially the .gif on the header, the badges, icons and stats. Seriously, Github is much better than Wordpress.
 </div>
