@@ -3,7 +3,7 @@
 ![Mario Pixel Art](assets/mario2023.gif)  
 *Art by [pixeljeff](https://www.deviantart.com/pixeljeff/gallery)*
 
-**Hello!** I’m Raymond, currently a **Marie Curie Postdoctoral Fellow** at the *Instituto Galego de Física de Altas Enerxías* (IGFAE), University of Santiago de Compostela, Spain.
+**Hello!** I’m Raymond, currently a **Marie Curie Postdoctoral Fellow** at the *Instituto Galego de Física de Altas Enerxías* (IGFAE), *Universidad de Santiago de Compostela* (USC), Spain.
 
 I work in **high-energy nuclear theory**, with a research focus on:
 
